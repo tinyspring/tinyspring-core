@@ -11,12 +11,10 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
+public class FileSystemXmlApplicationContext extends AbstractXmlApplicationContext {
    
    private static final Logger LOG = LoggerFactory.getLogger(
-         ClassPathXmlApplicationContext.class);
-   
-   ////
+         FileSystemXmlApplicationContext.class);
    
    /**
     * Create a new ClassPathXmlApplicationContext for bean-style configuration.
@@ -24,8 +22,8 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
     * @see #setConfigLocations
     * @see #afterPropertiesSet()
     */
-   public ClassPathXmlApplicationContext() {
-      //nothing
+   public FileSystemXmlApplicationContext() {
+      super();
    }
    
    /**
@@ -34,27 +32,23 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
     * @param configLocation resource location
     * @throws BeansException if context creation failed
     */
-   public ClassPathXmlApplicationContext(String configLocation) {
-	   super(configLocation);
+   public FileSystemXmlApplicationContext(String configLocation) {
+      super(configLocation);
    }
-
+   
    protected void processContext(String location) {
-      LOG.trace("Processing context: " + location);
-      getContextStack().push(location);
       XmlPullParserFactory factory = null;
       try {
          factory = XmlPullParserFactory.newInstance(
                System.getProperty(XmlPullParserFactory.PROPERTY_NAME), null);
       } catch (XmlPullParserException exp) {
          LOG.error(exp.getMessage());
-         LOG.error("Error processing Context: " + location);
          LOG.debug("Details: ", exp);
       }
       factory.setNamespaceAware(true);
       try {
          XmlPullParser xpp = factory.newPullParser();
-         Reader reader = getResorceManager().getReader(
-               new File(getResourceResolver().resolvePath(location)));
+         Reader reader = getResorceManager().getReader(new File(location));
          xpp.setInput(reader);
          
          processDocument(xpp);
@@ -62,13 +56,11 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
          reader.close();
       } catch (XmlPullParserException exp) {
          LOG.error(exp.getMessage());
-         LOG.error("Error processing Context: " + location);
          LOG.debug("Details: ", exp);
       } catch (IOException exp) {
          LOG.error(exp.getMessage());
-         LOG.error("Error processing Context: " + location);
          LOG.debug("Details: ", exp);
       }
-      getContextStack().push(location);
    }
+   
 }
