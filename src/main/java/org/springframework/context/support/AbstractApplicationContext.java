@@ -1,9 +1,12 @@
 package org.springframework.context.support;
 
+import java.util.Map;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
 
-public class AbstractApplicationContext {
+public class AbstractApplicationContext implements ApplicationContext {
    
    private BeanFactory _beanFactory;
 
@@ -15,6 +18,10 @@ public class AbstractApplicationContext {
       return getBeanFactory().getBean(name, requiredType);
    }
 
+   public <T> Map<String,T> getBeansOfType(Class<T> requiredType) throws BeansException {
+	   return getBeanFactory().getBeansOfType(requiredType);
+   }
+   
    /**
     * @return the beanFactory
     */

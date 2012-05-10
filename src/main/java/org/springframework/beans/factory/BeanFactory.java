@@ -16,6 +16,9 @@
 
 package org.springframework.beans.factory;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.BeansException;
 
 /**
@@ -271,4 +274,12 @@ public interface BeanFactory {
     */
    String[] getAliases(String name);
 
+   /**
+    * Get list of all beans implementing given interface.
+    * 
+    * @param requiredType
+    * @return
+    * @throws BeansException
+    */
+   public <T> Map<String,T> getBeansOfType(Class<T> requiredType) throws BeansException;
 }

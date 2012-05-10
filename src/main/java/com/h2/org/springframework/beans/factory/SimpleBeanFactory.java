@@ -1,6 +1,8 @@
 package com.h2.org.springframework.beans.factory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
@@ -10,8 +12,8 @@ import com.h2.org.springframework.beans.Bean;
 
 public class SimpleBeanFactory implements BeanFactory {
    
-   private Map<Class<?>, Object> _classesByType =
-      new HashMap<Class<?>, Object>();
+   private Map<Class<?>, Map<String,Object>> _classesByType =
+      new HashMap<Class<?>, Map<String,Object>>();
    
    private Map<String, Object> _beansByName =
          new HashMap<String, Object>();
@@ -20,10 +22,31 @@ public class SimpleBeanFactory implements BeanFactory {
    ////
    
    public void addBean(Bean bean) {
-      getClassesByType().put(bean.getClazz(), bean.getInstantiatedObject());
+	   Object instance = bean.getInstantiatedObject();
+	   Class superClass = instance.getClass();
+	   
+	   while (!"java.lang.Object".equals(superClass.getName())) {
+		   Class[] interfaces = superClass.getInterfaces();
+		   
+		   if (interfaces != null) {
+			   for (Class interfaze : interfaces) {
+				   Map<String,Object> beans = (Map<String,Object>)getClassesByType().get(interfaze);
+				   if (beans == null) {
+					   beans = new HashMap<String,Object>();
+					   getClassesByType().put(interfaze, beans);
+				   }
+				   beans.put(bean.getId(), instance);
+			   }
+		   }
+		   superClass = superClass.getSuperclass();
+	   }
+	   
+	   Map<String,Object>beans = new HashMap<String,Object>();
+	   beans.put(bean.getId(), instance);
+	   
+	   getClassesByType().put(bean.getClazz(), beans);
       if(bean.getNameResolved() != null) {
-         getBeansByName().put(bean.getNameResolved(),
-               bean.getInstantiatedObject());
+         getBeansByName().put(bean.getNameResolved(), instance);
       }
    }
 
@@ -45,6 +68,15 @@ public class SimpleBeanFactory implements BeanFactory {
       return (T) getClassesByType().get(requiredType);
    }
 
+   public <T> Map<String,T> getBeansOfType(Class<T> requiredType) throws BeansException {
+	   Map<String,T> beans = new HashMap<String,T>();
+	   Map<String, Object> m = getClassesByType().get(requiredType);
+	   if (m != null) {
+		   beans.putAll((Map<String,T>)m);
+	   }
+	   return beans;
+   }
+   
    @Override
    public Object getBean(String name, Object... args) throws BeansException {
       // TODO Auto-generated method stub
@@ -92,14 +124,14 @@ public class SimpleBeanFactory implements BeanFactory {
    /**
     * @return the classesByType
     */
-   public Map<Class<?>, Object> getClassesByType() {
+   public Map<Class<?>, Map<String,Object>> getClassesByType() {
       return _classesByType;
    }
 
    /**
     * @param classesByType the classesByType to set
     */
-   public void setClassesByType(Map<Class<?>, Object> classesByType) {
+   public void setClassesByType(Map<Class<?>, Map<String,Object>> classesByType) {
       _classesByType = classesByType;
    }
 
