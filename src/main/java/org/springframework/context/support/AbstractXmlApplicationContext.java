@@ -23,6 +23,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.PlaceholderResolver;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.ReflectionUtils;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -248,6 +249,23 @@ public class AbstractXmlApplicationContext extends AbstractApplicationContext {
             LOG.error(exp.getMessage());
             LOG.debug("Details: ", exp);
          }
+      }
+      
+      for (Bean bean : beans) {
+    	  if (bean.getInstantiatedObject() instanceof ApplicationContextAware) {
+    		  ((ApplicationContextAware)bean.getInstantiatedObject()).setApplicationContext(this);
+    	  }
+      
+   		  try {
+				processInitMethod(bean);
+   		  } catch (Throwable e) {
+				// TODO Should we throw an exception or just continue?
+				e.printStackTrace();
+   		  }  
+      
+    	  for (IBeanListener listener : getBeanListeners()) {
+    		  listener.afterInitialization(bean);
+    	  }
       }
    }
    
@@ -558,12 +576,6 @@ public class AbstractXmlApplicationContext extends AbstractApplicationContext {
                }
             }
          }
-      }
-      
-      processInitMethod(bean);
-      
-      for (IBeanListener listener : getBeanListeners()) {
-         listener.afterInitialization(bean);
       }
    }
    
