@@ -417,7 +417,7 @@ public class AbstractXmlApplicationContext extends AbstractApplicationContext {
          
          Object ref = null;
          if(arg.getBean() != null) {
-            ref = arg.getBean();
+            ref = arg.getBean().getInstantiatedObject();
          }
          else if(arg.getRef() != null) {
             ref = getBeanFactory().getBean(arg.getRef());

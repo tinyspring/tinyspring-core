@@ -98,6 +98,10 @@ public class BeanUtils {
       Constructor<T> ctor = null;
       try {
          Class<?>[] constructorArgClasses = new Class<?>[args.length];
+         int i = 0;
+         for (Object object : args) {
+        	 constructorArgClasses[i++] = object.getClass();
+         }
          ctor = ReflectUtils.getConstructor(clazz, constructorArgClasses);
          return ctor.newInstance(args);
       }
