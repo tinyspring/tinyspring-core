@@ -243,8 +243,10 @@ public class Bean {
       }
       else if (getName() != null) {
          return getName();
+      } else {
+		   String name = this.getClazzName().substring(this.getClazzName().lastIndexOf(".") + 1);
+		   return name.substring(0, 1).toLowerCase() + name.substring(1);
       }
-      return null;
    }
 
    /**

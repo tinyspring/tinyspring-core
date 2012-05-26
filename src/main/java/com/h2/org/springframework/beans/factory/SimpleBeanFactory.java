@@ -35,14 +35,14 @@ public class SimpleBeanFactory implements BeanFactory {
 					   beans = new HashMap<String,Object>();
 					   getClassesByType().put(interfaze, beans);
 				   }
-				   beans.put(bean.getId(), instance);
+				   beans.put(bean.getNameResolved(), instance);
 			   }
 		   }
 		   superClass = superClass.getSuperclass();
 	   }
 	   
 	   Map<String,Object>beans = new HashMap<String,Object>();
-	   beans.put(bean.getId(), instance);
+	   beans.put(bean.getNameResolved(), instance);
 	   
 	   getClassesByType().put(bean.getClazz(), beans);
       if(bean.getNameResolved() != null) {
