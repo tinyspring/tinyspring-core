@@ -90,11 +90,13 @@ public class AbstractXmlApplicationContext extends AbstractApplicationContext {
     * @param configLocation resource location
     * @throws BeansException if context creation failed
     */
-   public AbstractXmlApplicationContext(String configLocation) {
+   public AbstractXmlApplicationContext(String ... configLocations) {
       SimpleBeanFactory factory = new SimpleBeanFactory();
       setBeanFactory(factory);
       
-      processContext(configLocation);
+      for (String configLocation : configLocations) {
+    	  processContext(configLocation);  
+      }
       
       preProcess(factory);
       

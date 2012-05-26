@@ -32,8 +32,8 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
     * @param configLocation resource location
     * @throws BeansException if context creation failed
     */
-   public FileSystemXmlApplicationContext(String configLocation) {
-      super(configLocation);
+   public FileSystemXmlApplicationContext(String ... configLocations) {
+      super(configLocations);
    }
    
    protected void processContext(String location) {

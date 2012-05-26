@@ -34,8 +34,8 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
     * @param configLocation resource location
     * @throws BeansException if context creation failed
     */
-   public ClassPathXmlApplicationContext(String configLocation) {
-	   super(configLocation);
+   public ClassPathXmlApplicationContext(String ... configLocations) {
+	   super(configLocations);
    }
 
    protected void processContext(String location) {
