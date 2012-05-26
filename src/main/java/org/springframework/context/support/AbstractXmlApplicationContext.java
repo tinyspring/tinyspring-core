@@ -253,11 +253,14 @@ public class AbstractXmlApplicationContext extends AbstractApplicationContext {
          }
       }
       
-      for (Bean bean : beans) {
-    	  if (bean.getInstantiatedObject() instanceof ApplicationContextAware) {
-    		  ((ApplicationContextAware)bean.getInstantiatedObject()).setApplicationContext(this);
+      // for ALL (not just first level) beans do following
+      for (Object object : factory.getBeansByName().values()) {
+    	  if (object instanceof ApplicationContextAware) {
+    		  ((ApplicationContextAware)object).setApplicationContext(this);
     	  }
+      }
       
+      for (Bean bean : beans) {
    		  try {
 				processInitMethod(bean);
    		  } catch (Throwable e) {
