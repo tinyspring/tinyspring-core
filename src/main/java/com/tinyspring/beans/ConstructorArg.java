@@ -1,4 +1,4 @@
-package com.h2.org.springframework.beans;
+package com.tinyspring.beans;
 
 public class ConstructorArg implements IValueBean {
    

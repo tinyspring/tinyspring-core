@@ -1,4 +1,4 @@
-package com.h2.org.springframework.beans.factory;
+package com.tinyspring.beans.factory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 
-import com.h2.org.springframework.beans.Bean;
+import com.tinyspring.beans.Bean;
 
 public class SimpleBeanFactory implements BeanFactory {
    

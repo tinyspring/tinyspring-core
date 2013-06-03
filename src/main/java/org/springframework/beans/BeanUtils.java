@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
-import com.h2.util.lang.reflect.ReflectUtils;
+import com.tinyspring.util.lang.reflect.ReflectUtils;
 
 
 

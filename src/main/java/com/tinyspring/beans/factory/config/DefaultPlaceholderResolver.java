@@ -1,4 +1,4 @@
-package com.h2.org.springframework.beans.factory.config;
+package com.tinyspring.beans.factory.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -29,19 +29,19 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.h2.org.springframework.beans.Bean;
-import com.h2.org.springframework.beans.Bean.BeanType;
-import com.h2.org.springframework.beans.ConstructorArg;
-import com.h2.org.springframework.beans.IBeanListener;
-import com.h2.org.springframework.beans.IValueBean;
-import com.h2.org.springframework.beans.PropertyBean;
-import com.h2.org.springframework.beans.UtilBean;
-import com.h2.org.springframework.beans.factory.DResourceManager;
-import com.h2.org.springframework.beans.factory.IResourceManager;
-import com.h2.org.springframework.beans.factory.ResourceResolver;
-import com.h2.org.springframework.beans.factory.SimpleBeanFactory;
-import com.h2.org.springframework.beans.factory.config.DefaultPlaceholderResolver;
-import com.h2.util.lang.reflect.ReflectUtils;
+import com.tinyspring.beans.Bean;
+import com.tinyspring.beans.ConstructorArg;
+import com.tinyspring.beans.IBeanListener;
+import com.tinyspring.beans.IValueBean;
+import com.tinyspring.beans.PropertyBean;
+import com.tinyspring.beans.UtilBean;
+import com.tinyspring.beans.Bean.BeanType;
+import com.tinyspring.beans.factory.DResourceManager;
+import com.tinyspring.beans.factory.IResourceManager;
+import com.tinyspring.beans.factory.ResourceResolver;
+import com.tinyspring.beans.factory.SimpleBeanFactory;
+import com.tinyspring.beans.factory.config.DefaultPlaceholderResolver;
+import com.tinyspring.util.lang.reflect.ReflectUtils;
 
 public class AbstractXmlApplicationContext extends AbstractApplicationContext {
    

@@ -1,4 +1,4 @@
-package com.h2.org.springframework.beans;
+package com.tinyspring.beans;
 
 import java.util.ArrayList;
 import java.util.Collection;

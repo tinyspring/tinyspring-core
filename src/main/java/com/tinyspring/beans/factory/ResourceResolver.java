@@ -1,4 +1,4 @@
-package com.h2.org.springframework.beans.factory;
+package com.tinyspring.beans.factory;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
